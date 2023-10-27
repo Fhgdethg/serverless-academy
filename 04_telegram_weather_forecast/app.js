@@ -15,16 +15,16 @@ const bot = new TelegramBot(botToken, { polling: true });
 
 const niceBtn = {
   reply_markup: JSON.stringify({
-    inline_keyboard: [
-      [{text: 'Forecast in Nice', callback_data: 'forecast'}]
+    keyboard: [
+      [{text: 'Forecast in Nice'}]
     ]
   })
 };
 
 const timeoutButtons = {
   reply_markup: JSON.stringify({
-    inline_keyboard: [
-      [{text: 'at intervals of 3 hours', callback_data: '3'}, {text: 'at intervals of 6 hours', callback_data: '6'}]
+    keyboard: [
+      [{text: 'at intervals of 3 hours'}, {text: 'at intervals of 6 hours'}]
     ]
   })
 };
@@ -39,14 +39,15 @@ const sendWeatherToBot = async () => {
   await bot.sendMessage(botChatID, weatherOutput)
 };
 
-bot.on('callback_query', ({data}) => {
-  if (data === 'forecast')
+bot.on('message', ({ text }) => {
+  if (text.includes('Nice')){
     bot.sendMessage(botChatID, 'Select timeout', timeoutButtons)
-  else if (data === '3') {
+  }
+  else if (text.includes(' 3 ')) {
     threeHoursInterval = setInterval(sendWeatherToBot, threeHoursInMilliseconds)
     clearInterval(sexHoursInterval);
   }
-  else if (data === '6') {
+  else if (text.includes(' 3 ')) {
     sexHoursInterval = setInterval(sendWeatherToBot, sixHoursInMilliseconds)
     clearInterval(threeHoursInterval);
   }
