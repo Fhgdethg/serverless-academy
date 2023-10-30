@@ -47,7 +47,7 @@ bot.on('message', ({ text }) => {
     threeHoursInterval = setInterval(sendWeatherToBot, threeHoursInMilliseconds)
     clearInterval(sexHoursInterval);
   }
-  else if (text.includes(' 3 ')) {
+  else if (text.includes(' 6 ')) {
     sexHoursInterval = setInterval(sendWeatherToBot, sixHoursInMilliseconds)
     clearInterval(threeHoursInterval);
   }
