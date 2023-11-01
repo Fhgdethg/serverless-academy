@@ -21,16 +21,19 @@ const getGroupedUsers = (users) => {
     });
   });
 
-  return Array.from(usersMap.values());
+  const usersArr = Array.from(usersMap.values());
+  const formattedJSON = JSON.stringify(usersArr, null, 2);
+
+  return formattedJSON;
 };
 
 fetch('https://jsonbase.com/sls-team/vacations')
   .then(res => res.json())
   .then(res => {
-    const usersArr = getGroupedUsers(res.data);
-    console.log(usersArr);
+    const usersJSON = getGroupedUsers(res.data);
+    console.log(usersJSON);
   })
   .catch(err => {
-    const usersArr = getGroupedUsers(usersData);
-    console.log(usersArr);
+    const usersJSON = getGroupedUsers(usersData);
+    console.log(usersJSON);
   });
